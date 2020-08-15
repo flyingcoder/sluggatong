@@ -1,0 +1,19 @@
+{
+    "name": "flyingcoder/sluggatong",
+    "description": "A simple slug helper class that create unique slug column.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alvin",
+            "email": "aepacot2016@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Flyingcoder\\Sluggatong\\": "src/"
+        }
+    }
+}
