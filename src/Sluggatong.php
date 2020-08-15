@@ -13,12 +13,9 @@ class Slug {
 
         $nameSpace = '\\App\\';
 
-        $entity = app(ucfirst($model));
+        $entity = app($nameSpace . ucfirst($model));
 
-        if(class_exists($nameSpace . $entity))
-            $this->model = $nameSpace . $entity;
-        else
-            throw new \Exception('Model class does not exists.');
+        $this->model = $entity;
     }
 
     /**
@@ -30,21 +27,21 @@ class Slug {
     public function createSlug($title, $id = 0)
     {
         // Normalize the title
-        $slug = str_slug($title);
+        $slug = $title;
 
         // Get any that could possibly be related.
         // This cuts the queries down by doing it once.
         $allSlugs = $this->getRelatedSlugs($slug, $id);
 
         // If we haven't used it before then we are all good.
-        if (! $allSlugs->contains('slug', $slug)){
+        if (! $allSlugs->contains($this->column, $slug)){
             return $slug;
         }
 
         // Just append numbers like a savage until we find not used.
         for ($i = 1; $i <= 10; $i++) {
             $newSlug = $slug.'-'.$i;
-            if (! $allSlugs->contains('slug', $newSlug)) {
+            if (! $allSlugs->contains($this->column, $newSlug)) {
                 return $newSlug;
             }
         }
